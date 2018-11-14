@@ -103,5 +103,8 @@ class Cabecalho_ProvaController extends Controller
     public function destroy($id)
     {
         //
+        $cabecalho = \App\Cabecalho_Prova::find($id);
+        $cabecalho->delete();
+        return redirect('/cabecalho')->with('success','Cabeçalho deletado!');
     }
 }

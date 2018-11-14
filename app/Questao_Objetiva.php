@@ -22,12 +22,12 @@ class Questao_Objetiva extends Model
 
     public function provas()
     {
-        return $this->belongsToMany('App\Prova', 'prova_questao_obj');
+        return $this->belongsToMany('App\Prova', 'prova_questao_obj', 'questao_objetiva_id', 'prova_id');
     }
 
     public function alternativa()
     {
-        return $this->hasOne('App\Alternativa');
+        return $this->hasOne('App\Alternativa', 'questao_objetiva_id');
     }
 
     public function materia()

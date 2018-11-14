@@ -15,7 +15,7 @@
 	<div class="card card-register mx-auto mt-5">
 		<div class="card-header"><b>3º</b> selecione as questões</div>
 			<div class="card-body">
-				<form method="post" action="{{url('prova')}}" enctype="multipart/form-data">
+				<form method="post" action="{{url('prova')}}" enctype="multipart/form-data" target="_blank">
 	    		@csrf
 
 	    		@if($errors->any())
@@ -59,7 +59,7 @@
 					  		<div class="form-group row">
 					    		<label for="tipo" class="col-sm-3 col-form-label font-weight-bold control-label">Tipo:</label>
 							    <div class="col-sm-9">
-							      <select name="tipo" id="tipo" class="form-control" required="ON">
+							      <select name="tipo[]" id="tipo" class="form-control" required="ON">
 					                <option value="">Selecione o tipo de questão</option>
 					                    <option value="objetiva" > Objetiva</option>
 										<option value="dissertativa" > Dissertativa</option>  

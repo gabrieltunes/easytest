@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
+use PDF;
 
 class ProvaController extends Controller
 {
@@ -13,9 +15,8 @@ class ProvaController extends Controller
      */
     public function index()
     {
-        //
-        $materia_id = $request->get('nome');;
-        return view('prova_questoes',compact('materia_id') );
+        //$materia_id = $request->get('nome');;
+        //return view('prova_questoes',compact('materia_id') );
         
         
     }
@@ -39,6 +40,101 @@ class ProvaController extends Controller
     public function store(Request $request)
     {
         //
+        $professor_id = auth()->user()->id;
+        $materia = $request->get('materia_id');
+        $cabecalho = $request->get('cabecalho_id');
+        $assuntos = $request->get('assunto_id');
+        $tipos = $request->get('tipo');
+        $dificuldades = $request->get('dificuldade');
+        $quantidades = $request->get('quantidade');
+
+
+        $prova = new \App\Prova();
+
+        $prova->professor_id = $professor_id;
+        $prova->cabecalho_prova_id = $cabecalho;
+        $prova->save();
+
+        $prova_id= $prova->id;
+
+
+        $times = count($quantidades);
+
+
+        $alt = 0;
+
+
+        $alternativas = array();
+
+
+
+        for ($i=0; $i < $times; $i++) { 
+           
+
+            if ($tipos[$i] == "dissertativa") {
+
+
+                $questoes_existentes = 
+
+
+                $random_questions = DB::table('questao_dissertativa')->where([
+                    ['materia_id', $materia],
+                    ['assunto_id', $assuntos[$i]],
+                    ['dificuldade', $dificuldades[$i]],
+                ])->inRandomOrder()->take($quantidades[$i])->get();
+
+
+                foreach ($random_questions as $questao) {
+
+                    $provaSelecionada = \App\Prova::find($prova_id);
+
+                    $provaSelecionada->questao_dissertativas()->attach($questao->id, ['numero_questao' => $i+1]);
+                }
+
+            }elseif ($tipos[$i] == "objetiva") {
+
+                 $random_questions = DB::table('questao_objetiva')->where([
+                    ['materia_id', $materia],
+                    ['assunto_id', $assuntos[$i]],
+                    ['dificuldade', $dificuldades[$i]],
+                ])->inRandomOrder()->take($quantidades[$i])->get();
+
+
+                foreach ($random_questions as $questao) {
+
+                    $provaSelecionada = \App\Prova::find($prova_id);
+
+                    $provaSelecionada->questao_objetivas()->attach($questao->id, ['numero_questao' => $i+1]);
+
+                    $alternativa = \App\Questao_Objetiva::find($questao->id)->alternativa()->get();
+
+
+                    $alternativas[$alt] = $alternativa;
+
+
+                    $alt++;
+                }
+            }
+        }
+
+        $cabecalho_prova = \App\Cabecalho_Prova::find($cabecalho);
+
+        $questoes_objetivas = \App\Prova::find($prova_id)->questao_objetivas()->get();
+        $questoes_dissertativas = \App\Prova::find($prova_id)->questao_dissertativas()->get();
+
+        $questoes["objetivas"] = $questoes_objetivas;
+        $questoes["dissertativas"] = $questoes_dissertativas;
+
+        $professor = auth()->user()->name;
+
+
+    
+        $pdf = PDF::loadView('ver_prova', ['cabecalho_prova' => $cabecalho_prova, 'professor' => $professor, 'questoes' => $questoes, 'alternativas' => $alternativas]);
+
+
+        return $pdf->stream('prova.pdf');
+
+
     }
 
     /**

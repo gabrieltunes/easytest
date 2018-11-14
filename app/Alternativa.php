@@ -21,6 +21,6 @@ class Alternativa extends Model
 
     public function questao_objetiva()
     {
-        return $this->belongsTo('App\Questao_Objetiva');
+        return $this->belongsTo('App\Questao_Objetiva', 'questao_objetiva_id');
     }
 }

@@ -30,12 +30,12 @@ class Prova extends Model
 
     public function questao_objetivas()
     {
-        return $this->belongsToMany('App\Questao_Objetiva', 'prova_questao_obj');
+        return $this->belongsToMany('App\Questao_Objetiva', 'prova_questao_obj', 'prova_id', 'questao_objetiva_id');
     }
 
     public function questao_dissertativas()
     {
-        return $this->belongsToMany('App\Questao_Dissertativa', 'prova_questao_obj');
+        return $this->belongsToMany('App\Questao_Dissertativa', 'prova_questao_dis', 'prova_id', 'questao_dissertativa_id');
     }
 
 }

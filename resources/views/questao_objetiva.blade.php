@@ -72,7 +72,7 @@
 	    			<div class="form-group row">
 			    		<label for="enunciado" class="col-sm-3 col-form-label font-weight-bold control-label">{{ __('Enunciado:') }}</label>
 					    <div class="col-sm-8">
-					      <textarea class="form-control" name="enunciado" id="enunciado" rows="3"></textarea>
+					      <textarea class="form-control" name="enunciado" id="enunciado" rows="3" required="ON"></textarea>
 					    </div>
 			  		</div>
 
@@ -115,7 +115,7 @@
 			  		<div class="form-group row">
 			    		<label for="correta" class="col-sm-5 col-form-label font-weight-bold control-label">{{ __('Alternativa Correta:') }}</label>
 					    <div class="col-sm-5">
-					      <input type="text" class="form-control" id="correta" name="correta" placeholder="Alternativa Correta">
+					      <input type="text" class="form-control" id="correta" name="correta" placeholder="Alternativa Correta" required="ON">
 					    </div>
 			  		</div>
 

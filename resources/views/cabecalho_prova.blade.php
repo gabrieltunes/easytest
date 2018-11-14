@@ -28,7 +28,7 @@
 			  		<div class="form-group row">
 			    		<label for="nome" class="col-sm-3 col-form-label font-weight-bold control-label">{{ __('Descricao:') }}</label>
 					    <div class="col-sm-9">
-					      <input type="text" class="form-control" id="nome" name="nome" placeholder="Descrição para o cabeçalho">
+					      <input type="text" class="form-control" id="nome" name="nome" placeholder="Descrição para o cabeçalho" required="ON">
 					    </div>
 			  		</div>
 

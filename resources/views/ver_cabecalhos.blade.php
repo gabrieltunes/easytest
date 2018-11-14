@@ -15,12 +15,14 @@
 	        <tr>
 	          <th>Descrição</th>
 	          <th>Logo</th>
+	          <th>Opções</th>
 	        </tr>
 	      </thead>
           <tfoot>
             <tr>
               <th>Descrição</th>
 	          <th>Logo</th>
+	          <th>Opções</th>
             </tr>
           </tfoot>
           <tbody>
@@ -32,8 +34,6 @@
 					     width="200"
 					     height="141"
 					     title="Logo do cabeçalho"></td>
-		        
-		        <td><a href="{{action('Cabecalho_ProvaController@edit', $cabecalho['id'])}}" class="btn btn-warning">Edit</a></td>
 		        <td>
 		          <form action="{{action('Cabecalho_ProvaController@destroy', $cabecalho['id'])}}" method="post">
 		            @csrf

@@ -31,6 +31,10 @@ Route::group(['middleware' => ['auth']],function(){
 
 	Route::resource('ver_cabecalhos','Cabecalho_ProvaController');
 
+	Route::resource('prova','ProvaController');
+
+	//Route::post('ver_prova','ProvaController@index');
+
 	Route::get('prova_cabecalho','ProvaController@provaCabecalho');
 
 	Route::post('prova_materia','ProvaController@provaMateria');

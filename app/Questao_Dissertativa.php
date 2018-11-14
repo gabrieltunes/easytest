@@ -20,7 +20,7 @@ class Questao_Dissertativa extends Model
 
     public function provas()
     {
-        return $this->belongsToMany('App\Prova', 'prova_questao_dis');
+        return $this->belongsToMany('App\Prova', 'prova_questao_dis', 'questao_dissertativa_id', 'prova_id');
     }
 
     public function materia()

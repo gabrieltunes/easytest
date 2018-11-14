@@ -70,7 +70,7 @@
 	    			<div class="form-group row">
 			    		<label for="enunciado" class="col-sm-3 col-form-label font-weight-bold control-label">{{ __('Enunciado:') }}</label>
 					    <div class="col-sm-8">
-					      <textarea class="form-control" name="enunciado" id="enunciado" rows="3"></textarea>
+					      <textarea class="form-control" name="enunciado" id="enunciado" rows="3" required="ON"></textarea>
 					    </div>
 			  		</div>
 
