@@ -11,6 +11,7 @@ return array(
     'App\\Cabecalho_Prova' => $baseDir . '/app/Cabecalho_Prova.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
+    'App\\Gabarito' => $baseDir . '/app/Gabarito.php',
     'App\\Http\\Controllers\\AssuntoController' => $baseDir . '/app/Http/Controllers/AssuntoController.php',
     'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
     'App\\Http\\Controllers\\Auth\\LoginController' => $baseDir . '/app/Http/Controllers/Auth/LoginController.php',

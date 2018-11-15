@@ -33,6 +33,8 @@ Route::group(['middleware' => ['auth']],function(){
 
 	Route::resource('prova','ProvaController');
 
+	Route::resource('gabaritos','GabaritoController');
+
 	//Route::post('ver_prova','ProvaController@index');
 
 	Route::get('prova_cabecalho','ProvaController@provaCabecalho');

@@ -15,9 +15,12 @@ class ProvaController extends Controller
      */
     public function index()
     {
-        //$materia_id = $request->get('nome');;
-        //return view('prova_questoes',compact('materia_id') );
-        
+        $professor_id = auth()->user()->id;
+
+        $provas = \App\Professor::find($professor_id)->provas()->get();
+
+
+        return view('lista_provas',compact('provas'));  
         
     }
 
@@ -63,6 +66,8 @@ class ProvaController extends Controller
 
         $alt = 0;
 
+        $numQuest = 0;
+
 
         $alternativas = array();
 
@@ -89,6 +94,7 @@ class ProvaController extends Controller
                     $provaSelecionada = \App\Prova::find($prova_id);
 
                     $provaSelecionada->questao_dissertativas()->attach($questao->id, ['numero_questao' => $i+1]);
+
                 }
 
             }elseif ($tipos[$i] == "objetiva") {
@@ -111,7 +117,13 @@ class ProvaController extends Controller
 
                     $alternativas[$alt] = $alternativa;
 
+                    $gabarito = new \App\Gabarito();
+                    $gabarito->prova_id = $prova_id;
+                    $gabarito->numero_questao = $numQuest+1;
+                    $gabarito->resposta_correta = $questao->alternativa_correta;
+                    $gabarito->save();
 
+                    $numQuest++;
                     $alt++;
                 }
             }

@@ -371,6 +371,7 @@ class ComposerStaticInit5fe834b00b173f2127147d1895228da2
         'App\\Cabecalho_Prova' => __DIR__ . '/../..' . '/app/Cabecalho_Prova.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Gabarito' => __DIR__ . '/../..' . '/app/Gabarito.php',
         'App\\Http\\Controllers\\AssuntoController' => __DIR__ . '/../..' . '/app/Http/Controllers/AssuntoController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',

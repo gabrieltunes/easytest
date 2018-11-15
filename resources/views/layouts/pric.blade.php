@@ -127,8 +127,7 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
             <a class="dropdown-item" href="{{ url ('prova_cabecalho') }}">Gerar Prova</a>
-            <a class="dropdown-item" href="{{ url ('ver_prova') }}">Consultar Provas</a>
-            <a class="dropdown-item" href="{{ url ('ver_prova') }}">Consultar Gabaritos</a>
+            <a class="dropdown-item" href="{{ url ('prova') }}">Consultar Provas</a>
           </div>
         </li>
       </ul>

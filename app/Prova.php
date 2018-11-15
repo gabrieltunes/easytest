@@ -38,4 +38,9 @@ class Prova extends Model
         return $this->belongsToMany('App\Questao_Dissertativa', 'prova_questao_dis', 'prova_id', 'questao_dissertativa_id');
     }
 
+    public function gabaritos()
+    {
+        return $this->hasMany('App\Gabarito');
+    }
+
 }
