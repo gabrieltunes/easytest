@@ -19,6 +19,8 @@ Auth::routes();
 
 Route::group(['middleware' => ['auth']],function(){
 
+	Route::resource('profile','ProfessorController');
+
 	Route::resource('materia','MateriaController');
 
 	Route::resource('assunto','AssuntoController');
@@ -35,7 +37,7 @@ Route::group(['middleware' => ['auth']],function(){
 
 	Route::resource('gabaritos','GabaritoController');
 
-	//Route::post('ver_prova','ProvaController@index');
+	Route::post('update_profile','ProfessorController@edit');
 
 	Route::get('prova_cabecalho','ProvaController@provaCabecalho');
 
@@ -46,6 +48,8 @@ Route::group(['middleware' => ['auth']],function(){
 	Route::get('get-assuntos/{materia_id}', 'Questao_DissertativaController@getAssuntos');
 
 	Route::get('get-assuntos-obj/{materia_id}', 'Questao_ObjetivaController@getAssuntos');
+
+	Route::get('gabarito', 'GabaritoController@imprimir');
 
 	Route::get('/home', 'HomeController@index')->name('home');
 

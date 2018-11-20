@@ -33,7 +33,7 @@
 
 	    			<br><br>
 
-	    			<input type="hidden" name="materia_id" value="{{$info['assuntos'][0]->id}}">
+	    			<input type="hidden" name="materia_id" value="{{$info['materia']}}">
 
 	    			<input type="hidden" name="cabecalho_id" value="{{$info['cabecalho']}}"> 
 
@@ -82,7 +82,7 @@
 	  		
 
 					  		<div class="form-group row">
-					    		<label for="quantidade" class="col-sm-3 col-form-label font-weight-bold control-label">{{ __('Quatidade:') }}</label>
+					    		<label for="quantidade" class="col-sm-3 col-form-label font-weight-bold control-label">{{ __('Quantidade:') }}</label>
 							    <div class="col-sm-5">
 							      <input type="text" class="form-control" id="quantidade" name="quantidade[]" placeholder="Quantidade de Questões" required="ON">
 							    </div>

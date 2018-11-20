@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreProfile;
+use Illuminate\Support\Facades\Hash;
 
-class GabaritoController extends Controller
+
+class ProfessorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,11 +17,10 @@ class GabaritoController extends Controller
     public function index()
     {
         //
+        $id = auth()->user()->id;
+        $professor = \App\Professor::find($id);
 
-
-
-
-
+        return view('auth.profile',compact('professor') );
         
     }
 
@@ -54,15 +56,38 @@ class GabaritoController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    
+    
+    public function edit(StoreProfile $request)
     {
         //
+
+        $data = [
+
+            'name' => $request->get('name'),
+            'email' => $request->get('email'),
+            'password' => $request->get('password'),
+
+        ];
+
+
+        if ($data['password'] != null) {
+
+            $data['password'] = Hash::make($data['password']);
+        }else{
+
+            unset($data['password']);
+        }
+
+
+        $update = auth()->user()->update($data);
+
+        if ($update) {
+            
+            return redirect('profile')->with('success','Perfil atualizado com sucesso!');
+        }else {
+            return redirect('profile')->with('error','Erro ao atualizar o perfil...');
+        }
     }
 
     /**
@@ -88,21 +113,4 @@ class GabaritoController extends Controller
         //
     }
 
-
-    public function imprimir(Request $request)
-    {
-        //
-        $prova_id = $request->get('id');
-
-        $gabaritos = \App\Prova::find($prova_id)->gabaritos()->get();
-
-
-        //dd($gabaritos);
-
-
-        $pdf = \PDF::loadView('ver_gabarito', ['gabaritos' => $gabaritos]);
-
-
-        return $pdf->stream('gabarito.pdf');
-    }
 }

@@ -19,8 +19,18 @@ class ProvaController extends Controller
 
         $provas = \App\Professor::find($professor_id)->provas()->get();
 
+        $gab = \DB::table('prova_questao_obj')
+            ->join('prova', 'prova.id', '=', 'prova_questao_obj.prova_id')
+            ->select('prova.id')
+            ->get();
 
-        return view('lista_provas',compact('provas'));  
+        $gabs = $gab->unique();
+
+         
+        //dump($gab);
+        //dd($gabs);
+
+        return view('lista_provas')->with('provas', $provas)->with('gabs', $gabs);  
         
     }
 
@@ -71,15 +81,30 @@ class ProvaController extends Controller
 
         $alternativas = array();
 
+        //dump($professor_id);
+       // dump($materia);
+        //dump($cabecalho);
+        //dump($assuntos);
+        //dump($tipos);
+        //dump($dificuldades);
+        //dump($quantidades);
+        //dump($prova);
+
+
+
 
 
         for ($i=0; $i < $times; $i++) { 
+
+            //dump($tipos[$i]);
            
 
             if ($tipos[$i] == "dissertativa") {
 
 
-                $questoes_existentes = 
+                //dump($assuntos[$i]);
+                //dump($dificuldades[$i]);
+                //dump($quantidades[$i]);
 
 
                 $random_questions = DB::table('questao_dissertativa')->where([
@@ -87,6 +112,8 @@ class ProvaController extends Controller
                     ['assunto_id', $assuntos[$i]],
                     ['dificuldade', $dificuldades[$i]],
                 ])->inRandomOrder()->take($quantidades[$i])->get();
+
+                //dd($random_questions);
 
 
                 foreach ($random_questions as $questao) {
@@ -143,6 +170,8 @@ class ProvaController extends Controller
     
         $pdf = PDF::loadView('ver_prova', ['cabecalho_prova' => $cabecalho_prova, 'professor' => $professor, 'questoes' => $questoes, 'alternativas' => $alternativas]);
 
+        $pdf->save('./provas/' . $prova_id . '.pdf');
+
 
         return $pdf->stream('prova.pdf');
 
@@ -192,6 +221,9 @@ class ProvaController extends Controller
     public function destroy($id)
     {
         //
+        $prova = \App\Prova::find($id);
+        $prova->delete();
+        return redirect('prova')->with('success','Prova excluida!');
     }
 
 
@@ -218,6 +250,7 @@ class ProvaController extends Controller
 
         $info["cabecalho"] =  $cabecalho;
         $info["assuntos"] =  $assuntos;
+        $info["materia"] =  $materia_id;
 
         return view('prova_questoes',compact('info') );
         

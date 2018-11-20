@@ -136,7 +136,7 @@
 <script type="text/javascript">
     $('select[id=materia_id]').change(function () { // ativa a função quando é selecionado uma UF pelo id = uf
         var materia_id = $(this).val(); // recebe o valor da UF
-        $.get('/get-assuntos-obj/' + materia_id, function (assuntos) { // pesquisa pela url com a rota /get-cidades/uf-selecionada
+        $.get('get-assuntos-obj/' + materia_id, function (assuntos) { // pesquisa pela url com a rota /get-cidades/uf-selecionada
             $('select[name=assunto_id]').empty(); // procura o campo com o name = cidades
             $.each(assuntos, function (key, value) {
                 $('select[name=assunto_id]').append('<option value=' + value.id + '>' + value.descricao + '</option>'); // adicionando as opções da filtragem da UF
