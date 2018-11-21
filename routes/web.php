@@ -23,6 +23,8 @@ Route::group(['middleware' => ['auth']],function(){
 
 	Route::resource('materia','MateriaController');
 
+	Route::any('lista_materias','MateriaController@listar');
+
 	Route::resource('assunto','AssuntoController');
 
 	Route::resource('questao_dissertativa','Questao_DissertativaController');

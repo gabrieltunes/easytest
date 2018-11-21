@@ -94,6 +94,7 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
             <a class="dropdown-item" href="{{ url ('materia') }}">Cadastrar Matéria</a>
+            <a class="dropdown-item" href="{{ url ('lista_materias') }}"> Consultar/Repotar Matéria</a>
           </div>
         </li>
 

@@ -91,4 +91,11 @@ class MateriaController extends Controller
     {
         //
     }
+
+    public function listar()
+    {
+        //
+        $materias=\App\Materia::all();
+        return view('lista_materias',compact('materias'));
+    }
 }
