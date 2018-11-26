@@ -27,9 +27,15 @@ Route::group(['middleware' => ['auth']],function(){
 
 	Route::resource('assunto','AssuntoController');
 
+	Route::any('lista_assuntos','AssuntoController@lista_assuntos');
+
 	Route::resource('questao_dissertativa','Questao_DissertativaController');
 
+	Route::any('list_questoes_dissertativas','Questao_DissertativaController@listar_questoes');
+
 	Route::resource('questao_objetiva','Questao_ObjetivaController');
+
+	Route::any('list_questoes_objetivas','Questao_ObjetivaController@listar_questoes');
 
 	Route::resource('cabecalho','Cabecalho_ProvaController');
 

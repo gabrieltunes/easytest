@@ -6,7 +6,7 @@
 <div class="card mb-3">
 	<div class="card-header">
       <i class="fas fa-table"></i>
-      Matérias cadastradas:
+      Assuntos cadastrados:
   </div>
 
   <div class="card-body">
@@ -28,7 +28,8 @@
         <tr>
           <th>Código</th>
           <th>Descrição</th>
-          <th>Opção</th>
+          <th>Disciplina</th>
+          <th>Opções</th>
           
         </tr>
       </thead>
@@ -36,18 +37,20 @@
 
           <th id="teste">Código</th>
           <th id="teste">Descrição</th>
+          <th id="teste">Disciplina</th>
           <th ></th>
 
         </tfoot>
         <tbody>
         	
-          @foreach($materias as $materia)
+          @foreach($assuntos as $assunto)
     	      <tr>
-    	        <td>{{$materia->id}}</td>
-    	        <td>{{$materia->descricao}}</td>
+    	        <td>{{$assunto->id}}</td>
+    	        <td>{{$assunto->descricao}}</td>
+              <td>{{$assunto->materia->descricao}}</td>
     	        <td>
     	        	<div class="btn-group">
-                  <form action="{{action('MateriaController@destroy', $materia['id'])}}" method="post">
+                  <form action="{{action('AssuntoController@destroy', $assunto['id'])}}" method="post">
                     @csrf
                     <input name="_method" type="hidden" value="DELETE">
                     <button class="btn btn-danger btn-sm" type="submit">Excluir</button>
@@ -55,7 +58,7 @@
                   </form>
 
                   <div>
-                    <a href="{{action('MateriaController@edit', $materia['id'])}}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="{{action('AssuntoController@edit', $assunto['id'])}}" class="btn btn-warning btn-sm">Editar</a>
                   </div>
 
                 </div>

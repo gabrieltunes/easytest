@@ -69,6 +69,11 @@ class AssuntoController extends Controller
     public function edit($id)
     {
         //
+        $assunto = \App\Assunto::find($id);
+        $materias=\App\Materia::all();
+        //dump($assunto);
+        //dd($materia);
+        return view('editar_assunto',compact('assunto' , 'id', 'materias'));
     }
 
     /**
@@ -81,6 +86,11 @@ class AssuntoController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $assunto= \App\Assunto::find($id);
+        $assunto->descricao=$request->get('descricao');
+        $assunto->materia_id=$request->get('materia_id');
+        $assunto->save();
+        return redirect('lista_assuntos')->with('success','Assunto atualizado com sucesso!');
     }
 
     /**
@@ -92,5 +102,21 @@ class AssuntoController extends Controller
     public function destroy($id)
     {
         //
+        $assunto = \App\Assunto::find($id);
+        $assunto->delete();
+        return redirect('lista_assuntos')->with('success','Assunto deletado!');
     }
+
+    public function lista_assuntos()
+    {
+        //
+
+        $assuntos = \App\Assunto::with('materia')->get();
+
+        return view('listar_assuntos',compact('assuntos'));
+
+
+    }
+
+
 }

@@ -6,7 +6,7 @@
 <div class="card mb-3">
 	<div class="card-header">
       <i class="fas fa-table"></i>
-      Matérias cadastradas:
+      Questões Objetivas Cadastradas:
   </div>
 
   <div class="card-body">
@@ -27,27 +27,33 @@
       <thead>
         <tr>
           <th>Código</th>
-          <th>Descrição</th>
-          <th>Opção</th>
+          <th>Disciplina</th>
+          <th>Assunto</th>
+          <th>Dificuldade</th>
+          <th>Opções</th>
           
         </tr>
       </thead>
         <tfoot>
 
           <th id="teste">Código</th>
-          <th id="teste">Descrição</th>
+          <th id="teste">Disciplina</th>
+          <th id="teste">Assunto</th>
+          <th id="teste">Dificuldade</th>
           <th ></th>
 
         </tfoot>
         <tbody>
         	
-          @foreach($materias as $materia)
+          @foreach($questoes as $key => $questao)
     	      <tr>
-    	        <td>{{$materia->id}}</td>
-    	        <td>{{$materia->descricao}}</td>
+    	        <td>{{$questao->id}}</td>
+              <td>{{$disciplinas[$key]->descricao}}</td>
+              <td>{{$assuntos[$key]->descricao}}</td>
+              <td>{{$questao->dificuldade}}</td>
     	        <td>
     	        	<div class="btn-group">
-                  <form action="{{action('MateriaController@destroy', $materia['id'])}}" method="post">
+                  <form action="{{action('Questao_ObjetivaController@destroy', $questao['id'])}}" method="post">
                     @csrf
                     <input name="_method" type="hidden" value="DELETE">
                     <button class="btn btn-danger btn-sm" type="submit">Excluir</button>
@@ -55,7 +61,7 @@
                   </form>
 
                   <div>
-                    <a href="{{action('MateriaController@edit', $materia['id'])}}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="{{action('Questao_ObjetivaController@edit', $questao['id'])}}" class="btn btn-warning btn-sm">Editar</a>
                   </div>
 
                 </div>
@@ -95,20 +101,6 @@
         } );
     } );
 } );
-
-/*$(document).ready(function(){
-  
-      $(document).on('click', '#add', function(e){
-          e.preventDefault();
-          var i = $('#def').length;    //pega a quantidade de clones;
-          var elementos = elm_html.replace(/\[[0\]]\]/g, '['+i+++']');  //substitui o valor dos index e incrementa++
-
-          $(elementos).append('');
-          $('#definicoes').append(elementos);  //exibe o clone.
-      });
-  
-	});*/
-
 
 </script>
 @endsection

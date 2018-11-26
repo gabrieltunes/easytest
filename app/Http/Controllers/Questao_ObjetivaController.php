@@ -81,6 +81,16 @@ class Questao_ObjetivaController extends Controller
     public function edit($id)
     {
         //
+        $questao = \App\Questao_Objetiva::find($id);
+        $materias = \App\Materia::all();
+        $assunto=\App\Assunto::find($questao->assunto_id);
+
+        $assuntos_original = \App\Materia::find($questao->materia_id)->assuntos()->get();
+        $alternativas = $questao->alternativa()->get();
+
+        //dd($alternativas);
+
+        return view('editar_questao_objetiva',compact('questao' , 'id', 'materias', 'assunto', 'assuntos_original', 'alternativas'));
     }
 
     /**
@@ -93,6 +103,27 @@ class Questao_ObjetivaController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $questao_objetiva = \App\Questao_Objetiva::find($id);
+        $questao_objetiva->materia_id = $request->get('materia_id');
+        $questao_objetiva->assunto_id = $request->get('assunto_id');
+        $questao_objetiva->dificuldade = $request->get('dificuldade');
+        $questao_objetiva->enunciado = $request->get('enunciado');
+        $questao_objetiva->alternativa_correta = $request->get('correta');
+        $questao_objetiva->save();
+
+        $questao_objetiva_id= $questao_objetiva->id;
+        $alternativa_id = $request->get('alternativa_id');
+
+        $alternativa = \App\Alternativa::find($alternativa_id);
+        $alternativa->alternativa_a = $request->get('altA');
+        $alternativa->alternativa_b = $request->get('altB');
+        $alternativa->alternativa_c = $request->get('altC');
+        $alternativa->alternativa_d = $request->get('altD');
+        $alternativa->alternativa_e = $request->get('altE');
+        $alternativa->questao_objetiva_id = $questao_objetiva_id;
+        $alternativa->save();
+
+        return redirect('list_questoes_objetivas')->with('success','Questão atualizada com sucesso!');
     }
 
     /**
@@ -104,6 +135,9 @@ class Questao_ObjetivaController extends Controller
     public function destroy($id)
     {
         //
+        $questao = \App\Questao_Objetiva::find($id);
+        $questao->delete();
+        return redirect('list_questoes_objetivas')->with('success','Questão deletada!');
     }
 
     public function getAssuntos($materia_id)
@@ -115,5 +149,23 @@ class Questao_ObjetivaController extends Controller
             return response()->json($assuntos);
 
             
+    }
+
+    public function listar_questoes()
+    {
+        //
+        $questoes = \App\Questao_Objetiva::all();
+
+        foreach ($questoes as $key => $questao) {
+            $disciplinas[$key] = \App\Materia::find($questao->materia_id);
+            $assuntos[$key] = \App\Assunto::find($questao->assunto_id);
+        }
+
+        //dump($questoes);
+        //dump($disciplinas);
+        //dd($assuntos);
+        //$disciplinas = \App\Materia::all();
+
+        return view('listar_questoes_objetivas',compact('questoes','disciplinas','assuntos'));
     }
 }

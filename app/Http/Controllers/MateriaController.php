@@ -67,6 +67,8 @@ class MateriaController extends Controller
     public function edit($id)
     {
         //
+        $disciplina = \App\Materia::find($id);
+        return view('editar_disciplina',compact('disciplina' , 'id'));
     }
 
     /**
@@ -79,6 +81,10 @@ class MateriaController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $disciplina= \App\Materia::find($id);
+        $disciplina->descricao=$request->get('descricao');
+        $disciplina->save();
+        return redirect('lista_materias');
     }
 
     /**
@@ -90,6 +96,9 @@ class MateriaController extends Controller
     public function destroy($id)
     {
         //
+        $disciplina = \App\Materia::find($id);
+        $disciplina->delete();
+        return redirect('lista_materias')->with('success','Disciplina deletada!');
     }
 
     public function listar()

@@ -94,7 +94,7 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
             <a class="dropdown-item" href="{{ url ('materia') }}">Cadastrar Matéria</a>
-            <a class="dropdown-item" href="{{ url ('lista_materias') }}"> Consultar/Repotar Matéria</a>
+            <a class="dropdown-item" href="{{ url ('lista_materias') }}"> Consultar Matéria</a>
           </div>
         </li>
 
@@ -105,6 +105,7 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
             <a class="dropdown-item" href="{{ url ('assunto') }}">Cadastrar Assunto</a>
+            <a class="dropdown-item" href="{{ url ('lista_assuntos') }}"> Consultar Assuntos</a>
           </div>
         </li>
 
@@ -115,8 +116,13 @@
             <span>Questões</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <a class="dropdown-item" href="{{ url ('questao_dissertativa') }}">Questão Dissertativa</a>
-            <a class="dropdown-item" href="{{ url ('questao_objetiva') }}">Questão Objetiva</a>
+            <h6 class="dropdown-header">Questão Dissertativa:</h6>
+            <a class="dropdown-item" href="{{ url ('questao_dissertativa') }}">Criar</a>
+            <a class="dropdown-item" href="{{ url ('list_questoes_dissertativas') }}"> Consultar</a>
+            <div class="dropdown-divider"></div>
+            <h6 class="dropdown-header">Questão Objetiva:</h6>
+            <a class="dropdown-item" href="{{ url ('questao_objetiva') }}">Criar</a>
+            <a class="dropdown-item" href="{{ url ('list_questoes_objetivas') }}"> Consultar</a>
           </div>
         </li>
 
