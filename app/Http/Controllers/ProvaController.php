@@ -27,10 +27,9 @@ class ProvaController extends Controller
         $gabs = $gab->unique();
 
          
-        //dump($gab);
-        //dd($gabs);
+        
 
-        return view('lista_provas')->with('provas', $provas)->with('gabs', $gabs);  
+        return view('prova.lista_provas')->with('provas', $provas)->with('gabs', $gabs);  
         
     }
 
@@ -54,7 +53,7 @@ class ProvaController extends Controller
     {
         //
         $professor_id = auth()->user()->id;
-        $materia = $request->get('materia_id');
+        $disciplina = $request->get('disciplina_id');
         $cabecalho = $request->get('cabecalho_id');
         $assuntos = $request->get('assunto_id');
         $tipos = $request->get('tipo');
@@ -82,7 +81,7 @@ class ProvaController extends Controller
         $alternativas = array();
 
         //dump($professor_id);
-       // dump($materia);
+       // dump($disciplina);
         //dump($cabecalho);
         //dump($assuntos);
         //dump($tipos);
@@ -108,9 +107,10 @@ class ProvaController extends Controller
 
 
                 $random_questions = DB::table('questao_dissertativa')->where([
-                    ['materia_id', $materia],
+                    ['disciplina_id', $disciplina],
                     ['assunto_id', $assuntos[$i]],
                     ['dificuldade', $dificuldades[$i]],
+                    ['professor_id', $professor_id],
                 ])->inRandomOrder()->take($quantidades[$i])->get();
 
                 //dd($random_questions);
@@ -120,16 +120,17 @@ class ProvaController extends Controller
 
                     $provaSelecionada = \App\Prova::find($prova_id);
 
-                    $provaSelecionada->questao_dissertativas()->attach($questao->id, ['numero_questao' => $i+1]);
+                    $provaSelecionada->questao_dissertativas()->attach($questao->id);
 
                 }
 
             }elseif ($tipos[$i] == "objetiva") {
 
                  $random_questions = DB::table('questao_objetiva')->where([
-                    ['materia_id', $materia],
+                    ['disciplina_id', $disciplina],
                     ['assunto_id', $assuntos[$i]],
                     ['dificuldade', $dificuldades[$i]],
+                    ['professor_id', $professor_id],
                 ])->inRandomOrder()->take($quantidades[$i])->get();
 
 
@@ -137,7 +138,7 @@ class ProvaController extends Controller
 
                     $provaSelecionada = \App\Prova::find($prova_id);
 
-                    $provaSelecionada->questao_objetivas()->attach($questao->id, ['numero_questao' => $i+1]);
+                    $provaSelecionada->questao_objetivas()->attach($questao->id);
 
                     $alternativa = \App\Questao_Objetiva::find($questao->id)->alternativa()->get();
 
@@ -158,6 +159,8 @@ class ProvaController extends Controller
 
         $cabecalho_prova = \App\Cabecalho_Prova::find($cabecalho);
 
+        $disciplinaRead = \App\Disciplina::find($disciplina);
+
         $questoes_objetivas = \App\Prova::find($prova_id)->questao_objetivas()->get();
         $questoes_dissertativas = \App\Prova::find($prova_id)->questao_dissertativas()->get();
 
@@ -167,8 +170,9 @@ class ProvaController extends Controller
         $professor = auth()->user()->name;
 
 
+
     
-        $pdf = PDF::loadView('ver_prova', ['cabecalho_prova' => $cabecalho_prova, 'professor' => $professor, 'questoes' => $questoes, 'alternativas' => $alternativas]);
+        $pdf = PDF::loadView('prova.ver_prova', ['cabecalho_prova' => $cabecalho_prova, 'professor' => $professor, 'disciplina' => $disciplinaRead, 'questoes' => $questoes, 'alternativas' => $alternativas]);
 
         $pdf->save('./provas/' . $prova_id . '.pdf');
 
@@ -227,16 +231,19 @@ class ProvaController extends Controller
     }
 
 
-    public function provaMateria(Request $request)
+    public function provaDisciplina(Request $request)
     {
         //
+        $professor_id = auth()->user()->id;
         $cabecalho = $request->get('cabecalho');
-        $materias=\App\Materia::all();
+        $disciplinas=\App\Professor::find($professor_id)->disciplinas()->get();
 
         $info["cabecalho"] =  $cabecalho;
-        $info["materias"] =  $materias;
+        $info["disciplinas"] =  $disciplinas;
 
-        return view('prova_materia',compact('info') );
+        //dd($info);
+
+        return view('prova.prova_disciplina',compact('info') );
     }
 
 
@@ -245,14 +252,14 @@ class ProvaController extends Controller
         //
         //
         $cabecalho = $request->get('cabecalho');
-        $materia_id = $request->get('materia_id');
-        $assuntos = \App\Materia::find($materia_id)->assuntos;
+        $disciplina_id = $request->get('disciplina_id');
+        $assuntos = \App\Disciplina::find($disciplina_id)->assuntos;
 
         $info["cabecalho"] =  $cabecalho;
         $info["assuntos"] =  $assuntos;
-        $info["materia"] =  $materia_id;
+        $info["disciplina"] =  $disciplina_id;
 
-        return view('prova_questoes',compact('info') );
+        return view('prova.prova_questoes',compact('info') );
         
         
     }
@@ -263,6 +270,6 @@ class ProvaController extends Controller
         //
         $professor_id = auth()->user()->id;
         $cabecalhos = \App\Professor::find($professor_id)->cabecalho_provas;
-        return view('prova_cabecalho',compact('cabecalhos'));
+        return view('prova.prova_cabecalho',compact('cabecalhos'));
     }
 }

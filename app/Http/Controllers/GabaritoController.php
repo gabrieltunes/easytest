@@ -100,7 +100,7 @@ class GabaritoController extends Controller
         //dd($gabaritos);
 
 
-        $pdf = \PDF::loadView('ver_gabarito', ['gabaritos' => $gabaritos]);
+        $pdf = \PDF::loadView('gabarito.ver_gabarito', ['gabaritos' => $gabaritos]);
 
 
         return $pdf->stream('gabarito.pdf');

@@ -38,11 +38,7 @@
       <!-- Navbar Search -->
       <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
         <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-          <div class="input-group-append">
-            <button class="btn btn-primary" type="button">
-              <i class="fas fa-search"></i>
-            </button>
+          
           </div>
         </div>
       </form>
@@ -82,7 +78,7 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
             <a class="dropdown-item" href="{{ url ('cabecalho/create') }}">Cadastrar Cabeçalho</a>
-            <a class="dropdown-item" href="{{ url ('cabecalho') }}">Consultar Cabeçalho</a>
+            <a class="dropdown-item" href="{{ url ('lista_cabecalho') }}">Consultar Cabeçalhos</a>
           </div>
         </li>
 
@@ -90,11 +86,11 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-fw fa-book"></i>
-            <span>Matéria</span>
+            <span>Disciplina</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <a class="dropdown-item" href="{{ url ('materia') }}">Cadastrar Matéria</a>
-            <a class="dropdown-item" href="{{ url ('lista_materias') }}"> Consultar Matéria</a>
+            <a class="dropdown-item" href="{{ url ('disciplina') }}">Cadastrar Disciplina</a>
+            <a class="dropdown-item" href="{{ url ('lista_disciplinas') }}"> Consultar Disciplina</a>
           </div>
         </li>
 

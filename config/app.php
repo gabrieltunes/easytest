@@ -149,6 +149,8 @@ return [
 
         Barryvdh\DomPDF\ServiceProvider::class,
 
+        Felixkiss\UniqueWithValidator\ServiceProvider::class,
+
         /*
          * Package Service Providers...
          */

@@ -33,9 +33,29 @@ class Professor extends Model
         return $this->hasMany('App\Cabecalho_Prova');
     }
 
+    public function assuntos()
+    {
+        return $this->hasMany('App\Assunto');
+    }
+
+    public function disciplinas()
+    {
+        return $this->hasMany('App\Disciplina');
+    }
+
     public function provas()
     {
         return $this->hasMany('App\Prova');
+    }
+
+    public function questoes_dissertativas()
+    {
+        return $this->hasMany('App\Questao_Dissertativa');
+    }
+
+    public function questoes_objetivas()
+    {
+        return $this->hasMany('App\Questao_Objetiva');
     }
 }
     

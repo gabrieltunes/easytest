@@ -11,7 +11,7 @@ class Questao_Dissertativa extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'materia_id', 'assunto_id', 'dificuldade', 'enunciado',
+        'disciplina_id', 'assunto_id', 'professor_id', 'dificuldade', 'enunciado',
     ];
 
     protected $guarded = [
@@ -23,13 +23,18 @@ class Questao_Dissertativa extends Model
         return $this->belongsToMany('App\Prova', 'prova_questao_dis', 'questao_dissertativa_id', 'prova_id');
     }
 
-    public function materia()
+    public function disciplina()
     {
-        return $this->belongsTo('App\Materia');
+        return $this->belongsTo('App\Disciplina');
     }
 
     public function assunto()
     {
         return $this->belongsTo('App\Assunto');
+    }
+
+    public function professor()
+    {
+        return $this->belongsTo('App\Professor');
     }
 }

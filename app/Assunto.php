@@ -11,7 +11,7 @@ class Assunto extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'descricao', 'materia_id',
+        'descricao', 'disciplina_id', 'professor_id',
     ];
 
     protected $guarded = [
@@ -28,8 +28,13 @@ class Assunto extends Model
         return $this->hasMany('App\Questao_Dissertativa');
     }
 
-    public function materia()
+    public function disciplina()
     {
-        return $this->belongsTo('App\Materia');
+        return $this->belongsTo('App\Disciplina');
+    }
+
+    public function professor()
+    {
+        return $this->belongsTo('App\Professor');
     }
 }

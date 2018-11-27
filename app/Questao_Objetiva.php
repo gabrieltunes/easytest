@@ -12,7 +12,7 @@ class Questao_Objetiva extends Model
 
 
     protected $fillable = [
-        'materia_id', 'assunto_id', 'dificuldade', 'enunciado', 'alternativa_correta',
+        'disciplina_id', 'assunto_id', 'professor_id', 'dificuldade', 'enunciado', 'alternativa_correta',
     ];
 
     protected $guarded = [
@@ -30,14 +30,19 @@ class Questao_Objetiva extends Model
         return $this->hasOne('App\Alternativa', 'questao_objetiva_id');
     }
 
-    public function materia()
+    public function disciplina()
     {
-        return $this->belongsTo('App\Materia');
+        return $this->belongsTo('App\Disciplina');
     }
 
     public function assunto()
     {
         return $this->belongsTo('App\Assunto');
+    }
+
+    public function professor()
+    {
+        return $this->belongsTo('App\Professor');
     }
 
 }

@@ -15,12 +15,20 @@ class CreateQuestaoDissertativasTable extends Migration
     {
         Schema::create('questao_dissertativa', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('materia_id')->unsigned();
+            $table->integer('disciplina_id')->unsigned();
             $table->integer('assunto_id')->unsigned();
+            $table->integer('professor_id')->unsigned();
+            $table->string('dificuldade');
             $table->text('enunciado');
+            
 
-            $table->foreign('materia_id')
-            ->references('id')->on('materia')
+            $table->foreign('professor_id')
+            ->references('id')->on('professor')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+
+            $table->foreign('disciplina_id')
+            ->references('id')->on('disciplina')
             ->onDelete('cascade')
             ->onUpdate('cascade');
 

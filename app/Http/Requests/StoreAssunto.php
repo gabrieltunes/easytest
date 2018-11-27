@@ -25,8 +25,8 @@ class StoreAssunto extends FormRequest
     {
         return [
             //
-            'descricao' =>'required|max:190|unique:assunto,descricao,materia_id',
-            'materia_id' =>'required'
+            'descricao' =>'required|max:200',
+            'disciplina_id' =>'required'
         ];
     }
 
@@ -39,9 +39,9 @@ class StoreAssunto extends FormRequest
     {
         return [
             'descricao.required' => 'Insira um assunto',
-            'descricao.max'  => 'Nome de matéria muito grande',
+            'descricao.max'  => 'Nome de assunto muito grande',
             'descricao.unique'  => 'Esse assunto já existe nessa matéria',
-            'materia_id.required'  => 'Informe a matéria'
+            'disciplina_id.required'  => 'Informe a disciplina'
         ];
     }
 }

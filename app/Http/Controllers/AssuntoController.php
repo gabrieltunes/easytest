@@ -15,8 +15,9 @@ class AssuntoController extends Controller
     public function index()
     {
         //
-        $materias=\App\Materia::all();
-        return view('assunto',compact('materias'));
+        $professor_id = auth()->user()->id;
+        $disciplinas=\App\Professor::find($professor_id)->disciplinas()->get();
+        return view('assunto.assunto',compact('disciplinas'));
     }
 
     /**
@@ -41,7 +42,8 @@ class AssuntoController extends Controller
         //
         $data = [ 
             'descricao' => request('descricao'),
-            'materia_id' => request('materia_id') 
+            'disciplina_id' => request('disciplina_id'),
+            'professor_id' => auth()->user()->id
         ];
 
         \App\Assunto::create($data);
@@ -69,11 +71,17 @@ class AssuntoController extends Controller
     public function edit($id)
     {
         //
+        $professor_id = auth()->user()->id;
+
         $assunto = \App\Assunto::find($id);
-        $materias=\App\Materia::all();
-        //dump($assunto);
-        //dd($materia);
-        return view('editar_assunto',compact('assunto' , 'id', 'materias'));
+
+        if ($assunto->professor_id == $professor_id) {
+            $professor_id = auth()->user()->id;
+            $disciplinas=\App\Professor::find($professor_id)->disciplinas()->get();
+            return view('assunto.editar_assunto',compact('assunto' , 'id', 'disciplinas'));
+        }else{
+            return redirect('lista_assuntos')->with('error','Acesso negado!');
+        }
     }
 
     /**
@@ -83,14 +91,22 @@ class AssuntoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreAssunto $request, $id)
     {
         //
+        $professor_id = auth()->user()->id;
+
         $assunto= \App\Assunto::find($id);
-        $assunto->descricao=$request->get('descricao');
-        $assunto->materia_id=$request->get('materia_id');
-        $assunto->save();
-        return redirect('lista_assuntos')->with('success','Assunto atualizado com sucesso!');
+
+        if ($assunto->professor_id == $professor_id) {
+            $assunto->descricao=$request->get('descricao');
+            $assunto->disciplina_id=$request->get('disciplina_id');
+            $assunto->professor_id=$professor_id;
+            $assunto->save();
+            return redirect('lista_assuntos')->with('success','Assunto atualizado com sucesso!');
+        }else{
+            return redirect('lista_assuntos')->with('error','Acesso negado!');
+        }
     }
 
     /**
@@ -111,11 +127,24 @@ class AssuntoController extends Controller
     {
         //
 
-        $assuntos = \App\Assunto::with('materia')->get();
+        //$assuntos = \App\Assunto::with('disciplina')->get();
 
-        return view('listar_assuntos',compact('assuntos'));
+        $professor_id = auth()->user()->id;
+        $assuntos=\App\Professor::find($professor_id)->assuntos()->get();
+
+        return view('assunto.listar_assuntos',compact('assuntos'));
 
 
+    }
+
+    public function getAssuntos($disciplina_id)
+    {
+        //
+            $assuntos = \App\Disciplina::find($disciplina_id)->assuntos;
+
+            return response()->json($assuntos);
+
+            
     }
 
 

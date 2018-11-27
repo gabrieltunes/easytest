@@ -25,7 +25,7 @@ class StoreQuestaoObjetiva extends FormRequest
     {
         return [
             //
-            'materia_id' => 'required',
+            'disciplina_id' => 'required',
             'assunto_id' => 'required',
             'dificuldade' => 'required',
             'enunciado' => 'required',
@@ -47,7 +47,7 @@ class StoreQuestaoObjetiva extends FormRequest
     public function messages()
     {
         return [
-            'materia_id.required' => 'Selecione a matéria',
+            'disciplina_id.required' => 'Selecione a disciplina',
             'assunto_id.required' => 'Selecione o assunto',
             'dificuldade.required' => 'Escolha uma dificuldade',
             'enunciado.required' => 'Insera um enunciado',

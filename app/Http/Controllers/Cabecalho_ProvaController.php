@@ -16,8 +16,8 @@ class Cabecalho_ProvaController extends Controller
     {
         //
         $professor_id = auth()->user()->id;
-        $cabecalhos = \App\Professor::find($professor_id)->cabecalho_provas;
-        return view('ver_cabecalhos',compact('cabecalhos'));
+        $cabecalhos = \App\Professor::find($professor_id)->cabecalho_provas()->get();
+        return view('cabecalho.ver_cabecalhos',compact('cabecalhos'));
     }
 
     /**
@@ -28,7 +28,7 @@ class Cabecalho_ProvaController extends Controller
     public function create()
     {
         //
-        return view('cabecalho_prova');
+        return view('cabecalho.cabecalho_prova');
     }
 
     /**
@@ -40,8 +40,6 @@ class Cabecalho_ProvaController extends Controller
     public function store(StoreCabecalho_Prova $request)
     {
         //
-
-        //$professor_id = Auth::user()->id;
 
         $professor_id = auth()->user()->id;
 
@@ -80,6 +78,16 @@ class Cabecalho_ProvaController extends Controller
     public function edit($id)
     {
         //
+        $professor_id = auth()->user()->id;
+
+        $cabecalho = \App\Cabecalho_Prova::find($id);
+
+        if ($cabecalho->professor_id == $professor_id ) {
+            return view('cabecalho.editar_cabecalho',compact('cabecalho' , 'id'));
+        }else{
+            return redirect('/cabecalho')->with('error','Permissão negada!');
+        }
+        
     }
 
     /**
@@ -89,9 +97,29 @@ class Cabecalho_ProvaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreCabecalho_Prova $request, $id)
     {
         //
+        $professor_id = auth()->user()->id;
+
+        $cabecalho= \App\Cabecalho_Prova::find($id);
+        if ($cabecalho->professor_id == $professor_id ) {
+            if($request->hasfile('logo'))
+            {
+                $file = $request->file('logo');
+                $name=$professor_id.time().$file->getClientOriginalName();
+                $file->move(public_path().'/logo/', $name);
+                $cabecalho->logo=$name;
+            }
+            $cabecalho->nome=$request->get('nome');
+            $cabecalho->professor_id=$professor_id;
+            $cabecalho->save();
+            return redirect('ver_cabecalhos')->with('success','Cabeçalho atualizado com sucesso!');
+        }else{
+            return redirect('ver_cabecalhos')->with('error','Permissão negada!');
+        }
+
+        
     }
 
     /**
@@ -103,8 +131,24 @@ class Cabecalho_ProvaController extends Controller
     public function destroy($id)
     {
         //
+
+        $professor_id = auth()->user()->id;
+
         $cabecalho = \App\Cabecalho_Prova::find($id);
-        $cabecalho->delete();
-        return redirect('/cabecalho')->with('success','Cabeçalho deletado!');
+        if ($cabecalho->professor_id == $professor_id ) {
+            $cabecalho->delete();
+            return redirect('/cabecalho')->with('success','Cabeçalho deletado!');
+        }else{
+            return redirect('/cabecalho')->with('error','Permissão negada!');
+        }
+        
+    }
+
+    public function listar_cabecalhos()
+    {
+        //
+        $professor_id = auth()->user()->id;
+        $cabecalhos = \App\Professor::find($professor_id)->cabecalho_provas()->get();
+        return view('cabecalho.ver_cabecalhos',compact('cabecalhos'));
     }
 }

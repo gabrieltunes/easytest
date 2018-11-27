@@ -25,10 +25,10 @@ class StoreQuestaoDissertativa extends FormRequest
     {
         return [
             //
-            'materia_id' => 'required',
+            'disciplina_id' => 'required',
             'assunto_id' => 'required',
             'dificuldade' => 'required',
-            'enunciado' => 'required|unique:questao_dissertativa,enunciado,materia_id,assunto_id'
+            'enunciado' => 'required'
         ];
     }
 
@@ -40,7 +40,7 @@ class StoreQuestaoDissertativa extends FormRequest
     public function messages()
     {
         return [
-            'materia_id.required' => 'Selecione a matéria',
+            'disciplina_id.required' => 'Selecione a disciplina',
             'assunto_id.required' => 'Selecione o assunto',
             'dificuldade.required' => 'Escolha uma dificuldade',
             'enunciado.required' => 'Insera um enunciado',

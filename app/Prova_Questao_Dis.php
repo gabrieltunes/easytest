@@ -12,7 +12,7 @@ class Prova_Questao_Dis extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'prova_id', 'questao_dissertativa_id', 'numero_questao',
+        'prova_id', 'questao_dissertativa_id',
     ];
 
     protected $guarded = [

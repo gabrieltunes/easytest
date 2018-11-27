@@ -13,9 +13,15 @@ class CreateMateriasTable extends Migration
      */
     public function up()
     {
-        Schema::create('materia', function (Blueprint $table) {
+        Schema::create('disciplina', function (Blueprint $table) {
             $table->increments('id');
             $table->string('descricao')->unique();
+            $table->integer('professor_id')->unsigned();
+
+            $table->foreign('professor_id')
+            ->references('id')->on('professor')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
         });
     }
 
@@ -26,6 +32,6 @@ class CreateMateriasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('materia');
+        Schema::dropIfExists('disciplina');
     }
 }

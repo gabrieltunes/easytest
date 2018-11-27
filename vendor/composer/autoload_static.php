@@ -356,6 +356,13 @@ class ComposerStaticInit5fe834b00b173f2127147d1895228da2
                 0 => __DIR__ . '/..' . '/jakub-onderka/php-console-highlighter/src',
             ),
         ),
+        'F' => 
+        array (
+            'Felixkiss\\UniqueWithValidator\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/felixkiss/uniquewith-validator/src',
+            ),
+        ),
         'D' => 
         array (
             'Doctrine\\Common\\Lexer\\' => 
@@ -370,6 +377,7 @@ class ComposerStaticInit5fe834b00b173f2127147d1895228da2
         'App\\Assunto' => __DIR__ . '/../..' . '/app/Assunto.php',
         'App\\Cabecalho_Prova' => __DIR__ . '/../..' . '/app/Cabecalho_Prova.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
+        'App\\Disciplina' => __DIR__ . '/../..' . '/app/Disciplina.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Gabarito' => __DIR__ . '/../..' . '/app/Gabarito.php',
         'App\\Http\\Controllers\\AssuntoController' => __DIR__ . '/../..' . '/app/Http/Controllers/AssuntoController.php',
@@ -380,8 +388,10 @@ class ComposerStaticInit5fe834b00b173f2127147d1895228da2
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
         'App\\Http\\Controllers\\Cabecalho_ProvaController' => __DIR__ . '/../..' . '/app/Http/Controllers/Cabecalho_ProvaController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\DisciplinaController' => __DIR__ . '/../..' . '/app/Http/Controllers/DisciplinaController.php',
+        'App\\Http\\Controllers\\GabaritoController' => __DIR__ . '/../..' . '/app/Http/Controllers/GabaritoController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
-        'App\\Http\\Controllers\\MateriaController' => __DIR__ . '/../..' . '/app/Http/Controllers/MateriaController.php',
+        'App\\Http\\Controllers\\ProfessorController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProfessorController.php',
         'App\\Http\\Controllers\\ProvaController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProvaController.php',
         'App\\Http\\Controllers\\Questao_DissertativaController' => __DIR__ . '/../..' . '/app/Http/Controllers/Questao_DissertativaController.php',
         'App\\Http\\Controllers\\Questao_ObjetivaController' => __DIR__ . '/../..' . '/app/Http/Controllers/Questao_ObjetivaController.php',
@@ -395,11 +405,12 @@ class ComposerStaticInit5fe834b00b173f2127147d1895228da2
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Http\\Requests\\StoreAssunto' => __DIR__ . '/../..' . '/app/Http/Requests/StoreAssunto.php',
         'App\\Http\\Requests\\StoreCabecalho_Prova' => __DIR__ . '/../..' . '/app/Http/Requests/StoreCabecalho_Prova.php',
-        'App\\Http\\Requests\\StoreMateria' => __DIR__ . '/../..' . '/app/Http/Requests/StoreMateria.php',
+        'App\\Http\\Requests\\StoreDisciplina' => __DIR__ . '/../..' . '/app/Http/Requests/StoreDisciplina.php',
+        'App\\Http\\Requests\\StoreEditDisciplina' => __DIR__ . '/../..' . '/app/Http/Requests/StoreEditDisciplina.php',
+        'App\\Http\\Requests\\StoreProfile' => __DIR__ . '/../..' . '/app/Http/Requests/StoreProfile.php',
         'App\\Http\\Requests\\StoreProva' => __DIR__ . '/../..' . '/app/Http/Requests/StoreProva.php',
         'App\\Http\\Requests\\StoreQuestaoDissertativa' => __DIR__ . '/../..' . '/app/Http/Requests/StoreQuestaoDissertativa.php',
         'App\\Http\\Requests\\StoreQuestaoObjetiva' => __DIR__ . '/../..' . '/app/Http/Requests/StoreQuestaoObjetiva.php',
-        'App\\Materia' => __DIR__ . '/../..' . '/app/Materia.php',
         'App\\Professor' => __DIR__ . '/../..' . '/app/Professor.php',
         'App\\Prova' => __DIR__ . '/../..' . '/app/Prova.php',
         'App\\Prova_Questao_Dis' => __DIR__ . '/../..' . '/app/Prova_Questao_Dis.php',
@@ -1052,6 +1063,9 @@ class ComposerStaticInit5fe834b00b173f2127147d1895228da2
         'Faker\\Provider\\zh_TW\\Text' => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker/Provider/zh_TW/Text.php',
         'Faker\\UniqueGenerator' => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker/UniqueGenerator.php',
         'Faker\\ValidGenerator' => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker/ValidGenerator.php',
+        'Felixkiss\\UniqueWithValidator\\RuleParser' => __DIR__ . '/..' . '/felixkiss/uniquewith-validator/src/Felixkiss/UniqueWithValidator/RuleParser.php',
+        'Felixkiss\\UniqueWithValidator\\ServiceProvider' => __DIR__ . '/..' . '/felixkiss/uniquewith-validator/src/Felixkiss/UniqueWithValidator/ServiceProvider.php',
+        'Felixkiss\\UniqueWithValidator\\Validator' => __DIR__ . '/..' . '/felixkiss/uniquewith-validator/src/Felixkiss/UniqueWithValidator/Validator.php',
         'Fideloper\\Proxy\\TrustProxies' => __DIR__ . '/..' . '/fideloper/proxy/src/TrustProxies.php',
         'Fideloper\\Proxy\\TrustedProxyServiceProvider' => __DIR__ . '/..' . '/fideloper/proxy/src/TrustedProxyServiceProvider.php',
         'FontLib\\AdobeFontMetrics' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/AdobeFontMetrics.php',

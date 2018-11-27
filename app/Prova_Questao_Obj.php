@@ -12,7 +12,7 @@ class Prova_Questao_Obj extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'prova_id', 'questao_objetiva_id', 'numero_questao',
+        'prova_id', 'questao_objetiva_id',
     ];
 
     protected $guarded = [

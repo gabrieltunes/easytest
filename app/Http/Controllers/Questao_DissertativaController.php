@@ -15,8 +15,10 @@ class Questao_DissertativaController extends Controller
     public function index()
     {
         //
-        $materias=\App\Materia::all();
-        return view('questao_dissertativa',compact('materias') );
+        $professor_id = auth()->user()->id;
+
+        $disciplinas= \App\Professor::find($professor_id)->disciplinas()->get();
+        return view('questao_dissertativa.questao_dissertativa',compact('disciplinas') );
     }
 
     /**
@@ -27,7 +29,7 @@ class Questao_DissertativaController extends Controller
     public function create()
     {
         //
-        return view('questao_objetiva');
+        return view('questao_dissertativa.questao_dissertativa');
     }
 
     /**
@@ -39,9 +41,12 @@ class Questao_DissertativaController extends Controller
     public function store(StoreQuestaoDissertativa $request)
     {
         //
+        $professor_id = auth()->user()->id;
+
         $data = [ 
-            'materia_id' => request('materia_id'),
+            'disciplina_id' => request('disciplina_id'),
             'assunto_id' => request('assunto_id'),
+            'professor_id' => $professor_id,
             'dificuldade' => request('dificuldade'),
             'enunciado' => request('enunciado'),
         ];
@@ -71,15 +76,22 @@ class Questao_DissertativaController extends Controller
     public function edit($id)
     {
         //
-        $questao = \App\Questao_Dissertativa::find($id);
-        //$materia=\App\Materia::find($questao->materia_id);
-        $materias = \App\Materia::all();
-        $assunto=\App\Assunto::find($questao->assunto_id);
+        $professor_id = auth()->user()->id;
 
-        $assuntos_original = \App\Materia::find($questao->materia_id)->assuntos()->get();
-        //dump($assunto);
-        //dd($materia);
-        return view('editar_questao_dissertativa',compact('questao' , 'id', 'materias', 'assunto', 'assuntos_original'));
+        
+        $questao = \App\Questao_Dissertativa::find($id);
+
+        if ($questao->professor_id == $professor_id) {
+
+            $disciplinas= \App\Professor::find($professor_id)->disciplinas()->get();
+            $assunto=\App\Assunto::find($questao->assunto_id);
+
+            $assuntos_original = \App\Disciplina::find($questao->disciplina_id)->assuntos()->get();
+            
+            return view('questao_dissertativa.editar_questao_dissertativa',compact('questao' , 'id', 'disciplinas', 'assunto', 'assuntos_original'));
+        }else{
+            return redirect('list_questoes_dissertativas')->with('error','Acesso negado!');
+        }
     }
 
     /**
@@ -89,16 +101,24 @@ class Questao_DissertativaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreQuestaoDissertativa $request, $id)
     {
         //
+        $professor_id = auth()->user()->id;
+
         $questao= \App\Questao_Dissertativa::find($id);
-        $questao->materia_id=$request->get('materia_id');
-        $questao->assunto_id=$request->get('assunto_id');
-        $questao->enunciado=$request->get('enunciado');
-        $questao->dificuldade=$request->get('dificuldade');
-        $questao->save();
-        return redirect('list_questoes_dissertativas')->with('success','Questão atualizado com sucesso!');
+
+        if ($questao->professor_id == $professor_id) {
+            $questao->disciplina_id=$request->get('disciplina_id');
+            $questao->assunto_id=$request->get('assunto_id');
+            $questao->professor_id=$professor_id;
+            $questao->enunciado=$request->get('enunciado');
+            $questao->dificuldade=$request->get('dificuldade');
+            $questao->save();
+            return redirect('list_questoes_dissertativas')->with('success','Questão atualizada com sucesso!');
+        }else{
+            return redirect('list_questoes_dissertativas')->with('errors','Acesso negado!');
+        }
     }
 
     /**
@@ -110,39 +130,33 @@ class Questao_DissertativaController extends Controller
     public function destroy($id)
     {
         //
+        $professor_id = auth()->user()->id;
         $questao = \App\Questao_Dissertativa::find($id);
-        $questao->delete();
-        return redirect('list_questoes_dissertativas')->with('success','Questão deletada!');
-    }
-
-    public function getAssuntos($materia_id)
-    {
-        //
-            $assuntos = \App\Materia::find($materia_id)->assuntos;
-
-            //dd($assuntos);
-            //$assuntos->get(['id', 'descricao']);
-            //return Response::json($assuntos);
-            return response()->json($assuntos);
-
-            
+        if ($questao->professor_id == $professor_id) {
+            $questao->delete();
+            return redirect('list_questoes_dissertativas')->with('success','Questão deletada!');
+        }else{
+            return redirect('list_questoes_dissertativas')->with('errors','Acesso negado!');
+        }
     }
 
     public function listar_questoes()
     {
         //
-        $questoes = \App\Questao_Dissertativa::all();
+        $professor_id = auth()->user()->id;
+
+        $questoes = \App\Professor::find($professor_id)->questoes_dissertativas()->get();
 
         foreach ($questoes as $key => $questao) {
-            $disciplinas[$key] = \App\Materia::find($questao->materia_id);
+            $disciplinas[$key] = \App\Disciplina::find($questao->disciplina_id);
             $assuntos[$key] = \App\Assunto::find($questao->assunto_id);
         }
 
         //dump($questoes);
         //dump($disciplinas);
         //dd($assuntos);
-        //$disciplinas = \App\Materia::all();
 
-        return view('listar_questoes_dissertativas',compact('questoes','disciplinas','assuntos'));
+        return view('questao_dissertativa.listar_questoes_dissertativas',compact('questoes','disciplinas','assuntos'));
     }
+
 }

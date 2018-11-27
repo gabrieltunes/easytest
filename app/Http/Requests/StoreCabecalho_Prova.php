@@ -26,7 +26,7 @@ class StoreCabecalho_Prova extends FormRequest
         return [
             //
             'nome' => 'required|max:100',
-            'logo' => 'required'
+            'logo' => 'nullable'
         ];
     }
 
@@ -39,7 +39,6 @@ class StoreCabecalho_Prova extends FormRequest
     {
         return [
             'nome.required' => 'Insira uma descrição para o cabeçalho',
-            'logo.required' => 'Selecione um arquivo para o logo',
             'correta.max' => 'Descrição muito grande, máximo 100 caractéres',
             
         ];
