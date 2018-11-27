@@ -43,7 +43,7 @@
             @foreach($cabecalhos as $cabecalho)
 		      <tr>
 		        <td>{{$cabecalho['nome']}}</td>
-		        <td><img src="/logo/{{$cabecalho['logo']}}"
+		        <td><img src="./logo/{{$cabecalho['logo']}}"
 					     alt="logo"
 					     width="200"
 					     height="141"
