@@ -84,7 +84,7 @@
 					  		<div class="form-group row">
 					    		<label for="quantidade" class="col-sm-3 col-form-label font-weight-bold control-label">{{ __('Quantidade:') }}</label>
 							    <div class="col-sm-5">
-							      <input type="text" class="form-control" id="quantidade" name="quantidade[]" placeholder="Quantidade de Questões" required="ON">
+							      <input type="number" class="form-control" id="quantidade" name="quantidade[]" placeholder="Quantidade de Questões" required="ON">
 							    </div>
 					  		</div>
 

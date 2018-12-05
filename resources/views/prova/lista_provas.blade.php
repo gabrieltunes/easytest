@@ -26,29 +26,37 @@
 	      <thead>
 	        <tr>
 	          <th>Código</th>
-	          <th>Data</th>
+	          <th>Data / Hora</th>
 	          <th>Opção</th>
 	        </tr>
 	      </thead>
           <tfoot>
             <tr>
               <th id="teste">Código</th>
-	          <th id="teste">Data</th>
+	          <th id="teste">Data / Hora</th>
 	          <th></th>
             </tr>
           </tfoot>
           <tbody>
           	
-            @foreach($provas as $prova)
+            @foreach($provas as $key => $prova)
 		      <tr>
 		        <td>{{$prova['id']}}</td>
-		        <td>{{$prova->created_at->format('d/m/Y')}}</td>
+		        <td>{{$prova->created_at->format('d/m/Y H:i:s')}}</td>
 		        <td>
 		        	<div class="btn-group">
-			          <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#deletModal">Deletar</a>
+			          <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#deletModal{{$key}}">Deletar</a>
 
 			          <div>
-			          	<a class="btn btn-warning" href="./provas/{{$prova['id']}}.pdf" download="prova{{$prova['id']}}.pdf" role="button">Download Prova</a>
+			          	@isset($prova)
+
+							@include('deletes.deletar_prova')
+
+						@endisset
+			          </div>
+
+			          <div>
+			          	<a class="btn btn-warning btn-sm" href="./provas/{{$prova['id']}}.pdf" download="prova{{$prova['id']}}.pdf" role="button">Download Prova</a>
 			          </div>
 
 			          @foreach($gabs as $gabarito)
@@ -58,7 +66,7 @@
 				            @csrf
 				            <input name="_method" type="hidden" value="IMPRIMIR">
 				            <input name="id" type="hidden" value="{{$prova['id']}}">
-				            <button class="btn btn-success" type="submit">Gabarito</button>
+				            <button class="btn btn-success btn-sm" type="submit">Gabarito</button>
 				          </form>
 					     @endif
 
@@ -75,11 +83,6 @@
       </div>
     </div>
 </div>
-@isset($prova)
-
-@include('deletes.deletar_prova')
-
-@endisset
 
 @section('post-script')
 

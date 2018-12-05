@@ -75,7 +75,7 @@ class DisciplinaController extends Controller
 
         $disciplina = \App\Disciplina::find($id);
 
-        if ($disciplina->professor_id == $professor_id) {
+        if (($disciplina) && ($disciplina->professor_id == $professor_id)) {
             return view('disciplina.editar_disciplina',compact('disciplina' , 'id'));
         }else{
             return redirect('lista_disciplinas')->with('error','Acesso negado!');
@@ -96,7 +96,7 @@ class DisciplinaController extends Controller
 
         $disciplina= \App\Disciplina::find($id);
 
-        if ($disciplina->professor_id == $professor_id) {
+        if (($disciplina) && ($disciplina->professor_id == $professor_id)) {
             $disciplina->descricao=$request->get('descricao');
             $disciplina->professor_id=$professor_id;
             $disciplina->save();
@@ -122,7 +122,7 @@ class DisciplinaController extends Controller
 
         $disciplina = \App\Disciplina::find($id);
 
-        if ($disciplina->professor_id == $professor_id) {
+        if (($disciplina) && ($disciplina->professor_id == $professor_id)) {
             $disciplina->delete();
             return redirect('lista_disciplinas')->with('success','Disciplina deletada!');
             

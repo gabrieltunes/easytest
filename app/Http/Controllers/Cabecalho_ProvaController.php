@@ -43,15 +43,16 @@ class Cabecalho_ProvaController extends Controller
 
         $professor_id = auth()->user()->id;
 
+        $cabecalho= new \App\Cabecalho_Prova;
+
         if($request->hasfile('logo'))
          {
             $file = $request->file('logo');
             $name=$professor_id.time().$file->getClientOriginalName();
             $file->move(public_path().'/logo/', $name);
+            $cabecalho->logo=$name;
          }
-        $cabecalho= new \App\Cabecalho_Prova;
         $cabecalho->nome=$request->get('nome');
-        $cabecalho->logo=$name;
         $cabecalho->professor_id=$professor_id;
         $cabecalho->save();
 
@@ -82,7 +83,7 @@ class Cabecalho_ProvaController extends Controller
 
         $cabecalho = \App\Cabecalho_Prova::find($id);
 
-        if ($cabecalho->professor_id == $professor_id ) {
+        if (($cabecalho) && ($cabecalho->professor_id == $professor_id )) {
             return view('cabecalho.editar_cabecalho',compact('cabecalho' , 'id'));
         }else{
             return redirect('/cabecalho')->with('error','Permissão negada!');
@@ -103,7 +104,7 @@ class Cabecalho_ProvaController extends Controller
         $professor_id = auth()->user()->id;
 
         $cabecalho= \App\Cabecalho_Prova::find($id);
-        if ($cabecalho->professor_id == $professor_id ) {
+        if (($cabecalho) && ($cabecalho->professor_id == $professor_id )) {
             if($request->hasfile('logo'))
             {
                 $file = $request->file('logo');
@@ -135,7 +136,7 @@ class Cabecalho_ProvaController extends Controller
         $professor_id = auth()->user()->id;
 
         $cabecalho = \App\Cabecalho_Prova::find($id);
-        if ($cabecalho->professor_id == $professor_id ) {
+        if (($cabecalho) && ($cabecalho->professor_id == $professor_id )) {
             $cabecalho->delete();
             return redirect('/cabecalho')->with('success','Cabeçalho deletado!');
         }else{

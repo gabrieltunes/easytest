@@ -26,7 +26,7 @@
     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
       <thead>
         <tr>
-          <th>Código</th>
+          <th>Enunciado</th>
           <th>Disciplina</th>
           <th>Assunto</th>
           <th>Dificuldade</th>
@@ -36,7 +36,7 @@
       </thead>
         <tfoot>
 
-          <th id="teste">Código</th>
+          <th id="teste">Enunciado</th>
           <th id="teste">Disciplina</th>
           <th id="teste">Assunto</th>
           <th id="teste">Dificuldade</th>
@@ -47,13 +47,21 @@
         	
           @foreach($questoes as $key => $questao)
     	      <tr>
-    	        <td>{{$questao->id}}</td>
+    	        <td>{{$questao->enunciado}}</td>
               <td>{{$disciplinas[$key]->descricao}}</td>
               <td>{{$assuntos[$key]->descricao}}</td>
               <td>{{$questao->dificuldade}}</td>
     	        <td>
     	        	<div class="btn-group">
-                  <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#deletModal">Deletar</a>
+                  <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#deletModal{{$key}}">Deletar</a>
+
+                  <div>
+                    @isset($questao)
+
+                      @include('deletes.deletar_objetiva')
+
+                    @endisset
+                  </div>
 
                   <div>
                     <a href="{{action('Questao_ObjetivaController@edit', $questao['id'])}}" class="btn btn-warning btn-sm">Editar</a>
@@ -70,16 +78,11 @@
   </div>
 </div>
 
-@isset($questao)
-
-@include('deletes.deletar_objetiva')
-
-@endisset
 
 @section('post-script')
 
-<script src="{{ asset('js/tabela.js') }}"></script>
-
+<script src="{{ asset('js/ellipsis.js') }}"></script>
+<script src="{{ asset('js/tabelas.js') }}"></script>
 @endsection
 
 @endsection

@@ -14,6 +14,9 @@
     <!-- Bootstrap core CSS-->
     <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
 
+    <!-- Tabela CSS-->
+    <link href="{{ asset('css/coluna-fixa.css') }}" rel="stylesheet">
+
     <!-- Custom fonts for this template-->
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
 

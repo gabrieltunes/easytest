@@ -21,4 +21,21 @@ $(document).ready(function() {
             }
         } );
     } );
+
+
+    table.destroy();
+
+    $('#dataTable').DataTable({
+        retrieve: true,
+        columnDefs: [ {
+          targets: [0],
+          render: $.fn.dataTable.render.ellipsis( 10, true )
+        } ]
+    });
+
+
+
+    
 } );
+
+

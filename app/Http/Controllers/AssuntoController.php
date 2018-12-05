@@ -75,7 +75,7 @@ class AssuntoController extends Controller
 
         $assunto = \App\Assunto::find($id);
 
-        if ($assunto->professor_id == $professor_id) {
+        if (($assunto) &&($assunto->professor_id == $professor_id)) {
             $professor_id = auth()->user()->id;
             $disciplinas=\App\Professor::find($professor_id)->disciplinas()->get();
             return view('assunto.editar_assunto',compact('assunto' , 'id', 'disciplinas'));
@@ -98,7 +98,7 @@ class AssuntoController extends Controller
 
         $assunto= \App\Assunto::find($id);
 
-        if ($assunto->professor_id == $professor_id) {
+        if (($assunto) && ($assunto->professor_id == $professor_id)) {
             $assunto->descricao=$request->get('descricao');
             $assunto->disciplina_id=$request->get('disciplina_id');
             $assunto->professor_id=$professor_id;
@@ -118,9 +118,17 @@ class AssuntoController extends Controller
     public function destroy($id)
     {
         //
+        $professor_id = auth()->user()->id;
+
         $assunto = \App\Assunto::find($id);
-        $assunto->delete();
-        return redirect('lista_assuntos')->with('success','Assunto deletado!');
+
+        if (($assunto) && ($assunto->professor_id == $professor_id)) {
+            $assunto->delete();
+            return redirect('lista_assuntos')->with('success','Assunto deletado!');
+        }else{
+            return redirect('lista_assuntos')->with('error','Acesso negado!');
+        }
+        
     }
 
     public function lista_assuntos()

@@ -6,7 +6,7 @@
 <div class="card mb-3">
 	<div class="card-header">
       <i class="fas fa-table"></i>
-      Matérias cadastradas:
+      Disciplinas cadastradas:
   </div>
 
   <div class="card-body">
@@ -41,13 +41,21 @@
         </tfoot>
         <tbody>
         	
-          @foreach($disciplinas as $disciplina)
+          @foreach($disciplinas as $key => $disciplina)
     	      <tr>
     	        <td>{{$disciplina->id}}</td>
     	        <td>{{$disciplina->descricao}}</td>
     	        <td>
     	        	<div class="btn-group">
-                  <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#deletModal">Deletar</a>
+                  <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#deletModal{{$key}}">Deletar</a>
+
+                  <div>
+                    @isset($disciplina)
+
+                      @include('deletes.deletar_disciplina')
+
+                    @endisset
+                  </div>
 
                   <div>
                     <a href="{{action('DisciplinaController@edit', $disciplina['id'])}}" class="btn btn-warning btn-sm">Editar</a>
@@ -63,12 +71,6 @@
     </div>
   </div>
 </div>
-
-@isset($disciplina)
-
-@include('deletes.deletar_disciplina')
-
-@endisset
 
 @section('post-script')
 

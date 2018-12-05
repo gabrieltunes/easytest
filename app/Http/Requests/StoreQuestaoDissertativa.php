@@ -43,7 +43,7 @@ class StoreQuestaoDissertativa extends FormRequest
             'disciplina_id.required' => 'Selecione a disciplina',
             'assunto_id.required' => 'Selecione o assunto',
             'dificuldade.required' => 'Escolha uma dificuldade',
-            'enunciado.required' => 'Insera um enunciado',
+            'enunciado.required' => 'Insira um enunciado',
             'enunciado.unique' => 'Questão já foi cadastrada'
             
         ];

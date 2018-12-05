@@ -43,14 +43,22 @@
         </tfoot>
         <tbody>
         	
-          @foreach($assuntos as $assunto)
+          @foreach($assuntos as $key => $assunto)
     	      <tr>
     	        <td>{{$assunto->id}}</td>
     	        <td>{{$assunto->descricao}}</td>
               <td>{{$assunto->disciplina->descricao}}</td>
     	        <td>
     	        	<div class="btn-group">
-                  <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#deletModal">Deletar</a>
+                  <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#deletModal{{$key}}">Deletar</a>
+
+                  <div>
+                    @isset($assunto)
+
+                      @include('deletes.deletar_assunto')
+
+                    @endisset
+                  </div>
 
                   <div>
                     <a href="{{action('AssuntoController@edit', $assunto['id'])}}" class="btn btn-warning btn-sm">Editar</a>
@@ -67,11 +75,6 @@
   </div>
 </div>
 
-@isset($assunto)
-
-@include('deletes.deletar_assunto')
-
-@endisset
 
 @section('post-script')
 

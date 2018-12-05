@@ -34,7 +34,7 @@ class StoreQuestaoObjetiva extends FormRequest
             'altC' => 'required',
             'altD' => 'required',
             'altD' => 'required',
-            'correta' => 'required|max:1'
+            'correta' => 'required|max:1|alpha'
 
         ];
     }
@@ -50,14 +50,15 @@ class StoreQuestaoObjetiva extends FormRequest
             'disciplina_id.required' => 'Selecione a disciplina',
             'assunto_id.required' => 'Selecione o assunto',
             'dificuldade.required' => 'Escolha uma dificuldade',
-            'enunciado.required' => 'Insera um enunciado',
-            'altA.required' => 'Insera uma alternativa A',
-            'altB.required' => 'Insera uma alternativa B',
-            'altC.required' => 'Insera uma alternativa C',
-            'altD.required' => 'Insera uma alternativa D',
-            'altE.required' => 'Insera uma alternativa E',
+            'enunciado.required' => 'Insira um enunciado',
+            'altA.required' => 'Insira uma alternativa A',
+            'altB.required' => 'Insira uma alternativa B',
+            'altC.required' => 'Insira uma alternativa C',
+            'altD.required' => 'Insira uma alternativa D',
+            'altE.required' => 'Insira uma alternativa E',
             'correta.required' => 'Insera uma alternativa correta',
             'correta.max' => 'Insera SOMENTE a letra correspondente para alternativa correta',
+            'correta.alpha' => 'O campo CORRETA deve conter apenas letras (A, B, C, D ou E)'
             
         ];
     }

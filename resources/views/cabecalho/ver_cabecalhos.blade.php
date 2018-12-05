@@ -40,7 +40,7 @@
             </tr>
           </tfoot>
           <tbody>
-            @foreach($cabecalhos as $cabecalho)
+            @foreach($cabecalhos as $key => $cabecalho)
 		      <tr>
 		        <td>{{$cabecalho['nome']}}</td>
 		        <td><img src="./logo/{{$cabecalho['logo']}}"
@@ -50,7 +50,15 @@
 					     title="Logo do cabeçalho"></td>
 		        <td>
 		        	<div class="btn-group">
-			          <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#deletModal">Deletar</a>
+			          <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#deletModal{{$key}}">Deletar</a>
+
+			          <div>
+			          	@isset($cabecalho)
+
+							@include('deletes.deletar_cabecalho')
+
+						@endisset
+			          </div>
 
 			          <div>
 	                    <a href="{{action('Cabecalho_ProvaController@edit', $cabecalho['id'])}}" class="btn btn-warning btn-sm">Editar</a>
@@ -66,11 +74,6 @@
     </div>
 </div>
 
-@isset($cabecalho)
-
-@include('deletes.deletar_cabecalho')
-
-@endisset
 
 @section('post-script')
 

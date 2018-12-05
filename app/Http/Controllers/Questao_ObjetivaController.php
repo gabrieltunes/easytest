@@ -90,7 +90,7 @@ class Questao_ObjetivaController extends Controller
 
         $questao = \App\Questao_Objetiva::find($id);
 
-        if ($questao->professor_id == $professor_id) {
+        if (($questao) && ($questao->professor_id == $professor_id)) {
             $disciplinas= \App\Professor::find($professor_id)->disciplinas()->get();
             $assunto=\App\Assunto::find($questao->assunto_id);
 
@@ -113,14 +113,14 @@ class Questao_ObjetivaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Storage $request, $id)
+    public function update(StoreQuestaoObjetiva $request, $id)
     {
         //
         $professor_id = auth()->user()->id;
 
         $questao_objetiva = \App\Questao_Objetiva::find($id);
 
-        if ($questao_objetiva->professor_id == $professor_id) {
+        if (($questao_objetiva) && ($questao_objetiva->professor_id == $professor_id)) {
 
             $questao_objetiva->disciplina_id = $request->get('disciplina_id');
             $questao_objetiva->assunto_id = $request->get('assunto_id');
@@ -160,7 +160,7 @@ class Questao_ObjetivaController extends Controller
         $professor_id = auth()->user()->id;
         $questao = \App\Questao_Objetiva::find($id);
 
-        if ($questao->professor_id == $professor_id) {
+        if (($questao) && ($questao->professor_id == $professor_id)) {
             $questao->delete();
             return redirect('list_questoes_objetivas')->with('success','Questão deletada!');
         }else{
