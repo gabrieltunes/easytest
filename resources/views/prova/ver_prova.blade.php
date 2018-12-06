@@ -78,7 +78,10 @@
 
 				    	@foreach ($questao as $questao_objetiva)
 
-						<p id="enunciado"> <span><b>{{$i++}} . </b></span>{{$questao_objetiva->enunciado}}</p>
+						<p id="enunciado"> <span><b>{{$i++}} . </b></span>
+							@php 
+							 echo nl2br($questao_objetiva->enunciado); 
+							@endphp</p>
 
 						<br>
 
@@ -110,7 +113,10 @@
 
 				    	@foreach ($questao as $questao_dissertativa)
 
-						<p id="enunciado"> <span><b>{{$i++}} . </b></span>{{$questao_dissertativa->enunciado}}</p>
+						<p id="enunciado"> <span><b>{{$i++}} . </b></span>
+							@php 
+							 echo nl2br($questao_dissertativa->enunciado); 
+							@endphp</p>
 
 
 						<br><br><br>

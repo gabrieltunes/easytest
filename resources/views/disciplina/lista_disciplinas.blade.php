@@ -74,7 +74,7 @@
 
 @section('post-script')
 
-<script src="{{ asset('js/tabelas.js') }}"></script>
+<script src="{{ asset('js/tabelas-normal.js') }}"></script>
 
 @endsection
 

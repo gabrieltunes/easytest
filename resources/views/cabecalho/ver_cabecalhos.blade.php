@@ -35,7 +35,7 @@
           <tfoot>
             <tr>
               <th id="teste">Descrição</th>
-	          <th id="teste">Logo</th>
+	          <th></th>
 	          <th></th>
             </tr>
           </tfoot>
@@ -77,7 +77,7 @@
 
 @section('post-script')
 
-<script src="{{ asset('js/tabelas.js') }}"></script>
+<script src="{{ asset('js/tabelas-normal.js') }}"></script>
 
 @endsection
 

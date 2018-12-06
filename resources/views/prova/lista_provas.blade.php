@@ -45,32 +45,39 @@
 		        <td>{{$prova->created_at->format('d/m/Y H:i:s')}}</td>
 		        <td>
 		        	<div class="btn-group">
-			          <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#deletModal{{$key}}">Deletar</a>
 
 			          <div>
+			          	<a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#deletModal{{$key}}">Deletar</a>
+			          </div>
+
+			          
+
+			          <div>
+			          	<a class="btn btn-warning btn-sm" href="./provas/{{$prova['id']}}.pdf" download="prova{{$prova['id']}}.pdf" role="button">Download Prova</a>
+			          </div>
+
+			          <div>
+				          @foreach($gabs as $gabarito)
+
+				          	@if ($gabarito->id == $prova['id'])
+					          <form action="{{url('gabarito')}}" method="get" target="_blank">
+					            @csrf
+					            <input name="_method" type="hidden" value="IMPRIMIR">
+					            <input name="id" type="hidden" value="{{$prova['id']}}">
+					            <button class="btn btn-success btn-sm" type="submit">Gabarito</button>
+					          </form>
+						     @endif
+
+					      @endforeach
+				      </div>
+
+				      <div>
 			          	@isset($prova)
 
 							@include('deletes.deletar_prova')
 
 						@endisset
 			          </div>
-
-			          <div>
-			          	<a class="btn btn-warning btn-sm" href="./provas/{{$prova['id']}}.pdf" download="prova{{$prova['id']}}.pdf" role="button">Download Prova</a>
-			          </div>
-
-			          @foreach($gabs as $gabarito)
-
-			          	@if ($gabarito->id == $prova['id'])
-				          <form action="{{url('gabarito')}}" method="get" target="_blank">
-				            @csrf
-				            <input name="_method" type="hidden" value="IMPRIMIR">
-				            <input name="id" type="hidden" value="{{$prova['id']}}">
-				            <button class="btn btn-success btn-sm" type="submit">Gabarito</button>
-				          </form>
-					     @endif
-
-				      @endforeach
 			        </div>
 		        </td>
 		      </tr>
@@ -86,7 +93,7 @@
 
 @section('post-script')
 
-<script src="{{ asset('js/tabelas.js') }}"></script>
+<script src="{{ asset('js/tabelas-normal.js') }}"></script>
 
 @endsection
 
